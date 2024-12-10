@@ -33,7 +33,6 @@ public excelUtil (String path){
 
             // Get the sheet
             XSSFSheet sheet = workbook.getSheet(sheetName);
-
             // Get the row count
             if (sheet != null) {
                 rowCount = sheet.getLastRowNum(); // Returns the index of the last row (0-based)
@@ -102,7 +101,7 @@ public excelUtil (String path){
 
 
     public static String getCellData(String sheetName, int rowNum, int column) throws IOException {
-        String path ="C:\\Users\\Hamid-Post\\IdeaProjects\\TekSchoolRestAssured\\testData\\Book1.xlsx";
+        String path = "C:\\Users\\Hamid-Post\\IdeaProjects\\TekSchoolRestAssured\\testData\\Book1.xlsx";
 
         FileInputStream fi = null;
         XSSFWorkbook workbook = null;
@@ -124,10 +123,13 @@ public excelUtil (String path){
             // Get the cell
             Cell cell = (row != null) ? row.getCell(column) : null;
 
-            // Format the cell value
-            DataFormatter formatter = new DataFormatter();
             if (cell != null) {
-                data = formatter.formatCellValue(cell); // Returns cell value as a formatted String
+                // Use a formula evaluator
+                FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+                DataFormatter formatter = new DataFormatter();
+
+                // Evaluate and format the cell value
+                data = formatter.formatCellValue(cell, evaluator);
             }
         } catch (Exception e) {
             data = ""; // Return an empty string in case of an error
