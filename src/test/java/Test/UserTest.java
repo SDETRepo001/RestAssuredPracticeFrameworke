@@ -43,11 +43,26 @@ public class UserTest {
     @Test(priority = 2)
     public void testRetriveUser()
     {
-        Response response = Userendpoints.GetRequest(id);
+        Response response = Userendpoints.GetRequest( id);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        response.then().log().body();
+    }
+    @Test(priority = 3)
+    public void testUpdateUser()
+    {
+        Faker faker = new Faker();
+        postpayload.setName(faker.name().fullName());
+        postpayload.setEmail(faker.internet().emailAddress());
+        Response response = Userendpoints.PutRequest(postpayload, id);
         Assert.assertEquals(response.getStatusCode(), 200);
         response.then().log().body();
     }
 
-
-
+    @Test(priority = 4)
+    public void testDeleteUser()
+    {
+        Response response = Userendpoints.deleteRequest(id);
+        Assert.assertEquals(response.getStatusCode(), 204);
+        response.then().log().all();
+    }
 }

@@ -25,18 +25,22 @@ public class Userendpoints {
                 .when().get(Routes.getURL );
         return response;
     }
-    static public Response PutRequest ()
+    static public Response PutRequest (PostPayload data, String id)
     {
         Response response = given().header("Authorization", token )
+                .pathParam("id", id)
+                .body(data)
+                .contentType(ContentType.JSON)
                 .when().put(Routes.putURL);
         return response;
     }
-    static public Response deleteRequest ()
+    static public Response deleteRequest (String id)
     {
         Response response = given().header("Authorization", token )
-                .when().delete(Routes.deleteURL);
+                .pathParam("id", id).when().delete(Routes.deleteURL);
         return response;
     }
-
+/// **************************************** Omid endpoints
+// ************************ Rahim Endpoints
 
 }
