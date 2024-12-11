@@ -3,5 +3,6 @@ package Test;
 public class testConflect {
 
 
-    String abc = "abc";
+    int numbers = 123;
+    int numer = 211212;
 }
