@@ -17,8 +17,6 @@ public class UserTest {
     Routes routes = new Routes();
     static PostPayload postpayload ;
     static String id;
-
-
 @BeforeClass
     public void data1 ()
     {
@@ -60,6 +58,14 @@ public class UserTest {
 
     @Test(priority = 4)
     public void testDeleteUser()
+    {
+        Response response = Userendpoints.deleteRequest(id);
+        Assert.assertEquals(response.getStatusCode(), 204);
+        response.then().log().all();
+    }
+
+    @Test(priority = 4)
+    public void testDeleteUser1()
     {
         Response response = Userendpoints.deleteRequest(id);
         Assert.assertEquals(response.getStatusCode(), 204);
