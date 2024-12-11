@@ -7,10 +7,14 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class excelUtil {
+;
 
      String path; 
 
@@ -19,8 +23,7 @@ public excelUtil (String path){
 }
 
     public static int getRowCount(String sheetName) throws IOException {
-        String path ="C:\\Users\\Hamid-Post\\IdeaProjects\\TekSchoolRestAssured\\testData\\Book1.xlsx";
-        FileInputStream fi = null;
+        String path = System.getProperty("user.dir") + "\\testData\\Book1.xlsx";        FileInputStream fi = null;
         XSSFWorkbook workbook = null;
         int rowCount = 0;
 
@@ -71,8 +74,7 @@ public excelUtil (String path){
 
     public static int getCellCount(String sheetName, int rowNum) throws IOException {
 
-        String path ="C:\\Users\\Hamid-Post\\IdeaProjects\\TekSchoolRestAssured\\testData\\Book1.xlsx";
-        FileInputStream fi = null;
+        String path = System.getProperty("user.dir") + "\\testData\\Book1.xlsx";        FileInputStream fi = null;
         XSSFWorkbook workbook = null;
         int cellCount = 0;
         
@@ -101,8 +103,7 @@ public excelUtil (String path){
 
 
     public static String getCellData(String sheetName, int rowNum, int column) throws IOException {
-        String path = "C:\\Users\\Hamid-Post\\IdeaProjects\\TekSchoolRestAssured\\testData\\Book1.xlsx";
-
+        String path = System.getProperty("user.dir") + "\\testData\\Book1.xlsx";
         FileInputStream fi = null;
         XSSFWorkbook workbook = null;
         String data = "";
@@ -140,6 +141,47 @@ public excelUtil (String path){
         }
 
         return data;
+    }
+    static public void writeIdToExcel(String sheetName, String id) throws IOException {
+        String path = System.getProperty("user.dir") + "\\testData\\Book1.xlsx";        FileInputStream fi = new FileInputStream(path);
+        XSSFWorkbook workbook = new XSSFWorkbook(fi);
+
+        XSSFSheet sheet = workbook.getSheet(sheetName);
+        if (sheet == null) {
+            sheet = workbook.createSheet(sheetName); // Create a new sheet if it doesn't exist
+        }
+
+        int rownum = sheet.getLastRowNum() + 1; // Get the next available row
+        Row row = sheet.createRow(rownum);
+        Cell cell = row.createCell(0); // Write ID in the first column
+        cell.setCellValue(id);
+
+        // Save the changes
+        fi.close();
+        FileOutputStream fo = new FileOutputStream(path);
+        workbook.write(fo);
+        workbook.close();
+        fo.close();
+    }
+
+    static public List<String> readIdsFromExcel(String sheetName) throws IOException {
+        String path = System.getProperty("user.dir") + "\\testData\\Book1.xlsx";        FileInputStream fi = new FileInputStream(path);
+        XSSFWorkbook workbook = new XSSFWorkbook(fi);
+        XSSFSheet sheet = workbook.getSheet(sheetName);
+
+        List<String> ids = new ArrayList<>();
+        if (sheet != null) {
+            for (Row row : sheet) {
+                Cell cell = row.getCell(0); // Read IDs from the first column
+                if (cell != null) {
+                    ids.add(cell.getStringCellValue());
+                }
+            }
+        }
+
+        fi.close();
+        workbook.close();
+        return ids;
     }
 
 
