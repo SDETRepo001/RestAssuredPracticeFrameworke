@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="MyTestSuite" >
+
+    <test name="API normal xml execution">
+        <classes>
+            <class name="Test.UserTest">
+                <methods>
+                    <include name="testPost"/>
+                    <include name="testRetriveUser"/>
+                    <include name="testUpdateUser"/>
+                    <include name="testDeleteUser"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

@@ -4,8 +4,7 @@ import static io.restassured.RestAssured.given;
 import Payloads.PostPayload;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-
-import java.util.Map;
+import org.json.JSONObject;
 
 public class Userendpoints {
     PostPayload postpayload;
@@ -25,22 +24,29 @@ public class Userendpoints {
                 .when().get(Routes.getURL );
         return response;
     }
-    static public Response PutRequest (PostPayload data, String id)
+    static public Response PutRequest (PostPayload postpayload, String id)
     {
         Response response = given().header("Authorization", token )
                 .pathParam("id", id)
-                .body(data)
-                .contentType(ContentType.JSON)
                 .when().put(Routes.putURL);
         return response;
     }
     static public Response deleteRequest (String id)
     {
         Response response = given().header("Authorization", token )
-                .pathParam("id", id).when().delete(Routes.deleteURL);
+                .pathParam("id", id)
+                .when().delete(Routes.deleteURL);
         return response;
     }
-/// **************************************** Omid endpoints
-// ************************ Rahim Endpoints
+
+    static public Response putRequest (String id, JSONObject boby)
+    {
+        Response response = given().header("Authorization", token )
+                .body(boby)
+                .contentType(ContentType.JSON)
+                .pathParam("id", id)
+                .when().put(Routes.putURL);
+        return response;
+    }
 
 }
