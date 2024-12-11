@@ -6,8 +6,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 
-import java.util.Map;
-
 public class Userendpoints {
     PostPayload postpayload;
     static public String token = "Bearer e0ad33a27af2be5ef6fb60647c1f76fba10258b0373027c39f9834d16f10c821";
@@ -26,7 +24,7 @@ public class Userendpoints {
                 .when().get(Routes.getURL );
         return response;
     }
-    static public Response PutRequest (String id)
+    static public Response PutRequest (PostPayload postpayload, String id)
     {
         Response response = given().header("Authorization", token )
                 .pathParam("id", id)

@@ -57,7 +57,8 @@ public class MyRequests {
 
 
         Response response= Userendpoints.putRequest(id,body);
-        Assert.assertEquals(response.getStatusCode(),204);
+        Assert.assertEquals(response.getStatusCode(),200);
+        response.then().log().body();
     }
 
 }
