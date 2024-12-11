@@ -37,3 +37,7 @@ build/
 ### Mac OS ###
 .DS_Store
 .idea/vcs.xml
+
+uiDesigner.xml
+misc.xml
+pom.xml
