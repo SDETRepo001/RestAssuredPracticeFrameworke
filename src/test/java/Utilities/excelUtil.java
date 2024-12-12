@@ -23,7 +23,8 @@ public excelUtil (String path){
 }
 
     public static int getRowCount(String sheetName) throws IOException {
-        String path = System.getProperty("user.dir") + "\\testData\\Book1.xlsx";        FileInputStream fi = null;
+        String path = System.getProperty("user.dir") + "\\testData\\Book1.xlsx";
+        FileInputStream fi = null;
         XSSFWorkbook workbook = null;
         int rowCount = 0;
 
